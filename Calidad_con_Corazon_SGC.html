@@ -407,15 +407,15 @@ function hash(s){let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(
 function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath()}
 async function drawCert(){const c=$('#cert'),x=c.getContext('2d');c.width=3508;c.height=2480;x.setTransform(2,0,0,2,0,0);x.imageSmoothingQuality='high';
  const w=1754,h=1240,SER="Georgia,'Times New Roman',Times,serif",SAN="Inter,Arial,sans-serif";
- const GRN='#0a5c40',GR2='#0a7a52',GLD='#b8941f',INK='#12352a',SOFT='#4a6b5f';
+ const GRN='#1F3864',GR2='#2F5597',GLD='#C9A227',INK='#14233f',SOFT='#4f5d7a';
  try{if(document.fonts&&document.fonts.load){await Promise.race([Promise.all([document.fonts.load('600 20px Inter'),document.fonts.load('800 20px Inter')]),new Promise(r=>setTimeout(r,1200))])}}catch(e){}
  const lg=await loadI(IMG.logo);
  const sp=(t,cx0,y,s)=>{let tw=0;for(const ch of t)tw+=x.measureText(ch).width+s;tw-=s;let px=cx0-tw/2;x.textAlign='left';for(const ch of t){x.fillText(ch,px,y);px+=x.measureText(ch).width+s}x.textAlign='center'};
  const wrap=(t,mw)=>{const ws=t.split(' ');const L=[];let l='';ws.forEach(wd=>{const tt=l?l+' '+wd:wd;if(x.measureText(tt).width>mw&&l){L.push(l);l=wd}else l=tt});if(l)L.push(l);return L};
  // fondo
- x.fillStyle='#fffdf6';x.fillRect(0,0,w,h);
+ x.fillStyle='#fffdf7';x.fillRect(0,0,w,h);
  // marca de agua: rosetón fino
- x.save();x.translate(w/2,h/2+30);x.strokeStyle='rgba(10,122,82,.07)';x.lineWidth=1;
+ x.save();x.translate(w/2,h/2+30);x.strokeStyle='rgba(31,56,100,.07)';x.lineWidth=1;
  for(let k=0;k<36;k++){x.beginPath();x.ellipse(0,0,330,120,k*Math.PI/36,0,6.2832);x.stroke()}
  for(let r=60;r<=340;r+=40){x.beginPath();x.arc(0,0,r,0,6.2832);x.stroke()}x.restore();
  // bordes
@@ -447,7 +447,7 @@ async function drawCert(){const c=$('#cert'),x=c.getContext('2d');c.width=3508;c
  // compromisos
  x.fillStyle=GLD;x.font='700 17px '+SAN;sp('COMPROMISOS ASUMIDOS',w/2,722,5);
  const P=(S.prom||[]).slice(0,3),cw=340,gap=24,x0=w/2-(cw*3+gap*2)/2;
- P.forEach((p,i)=>{const bx=x0+i*(cw+gap);x.fillStyle='rgba(10,122,82,.07)';x.fillRect(bx,742,cw,72);x.fillStyle=GR2;x.fillRect(bx,742,5,72);
+ P.forEach((p,i)=>{const bx=x0+i*(cw+gap);x.fillStyle='rgba(31,56,100,.07)';x.fillRect(bx,742,cw,72);x.fillStyle=GR2;x.fillRect(bx,742,5,72);
   x.fillStyle=INK;x.font='600 19px '+SAN;x.textAlign='left';const L=wrap(p,cw-34);L.forEach((l,j)=>x.fillText(l,bx+18,(L.length>1?768:783)+j*25));x.textAlign='center'});
  if(S.ded){x.fillStyle=GR2;x.font='italic 24px '+SER;let t='Con dedicación para '+S.ded;while(x.measureText(t).width>1000&&t.length>14)t=t.slice(0,-2);x.fillText(t,w/2,858)}
  // firmas
