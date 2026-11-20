@@ -245,10 +245,10 @@ function match(box,pairs,o){const L=shuf(pairs.map((p,i)=>[p[0],i])),R=shuf(pair
 /* ===== PANTALLA 0: INICIO ===== */
 function build0(s){
  s.innerHTML='<div class="kick">Sistema de Gestión de la Calidad · Perspectiva 3</div><h1>Conciencia y <em>compromiso</em></h1><p class="lead" style="margin-top:8px">Una experiencia corta para sentir, y no solo saber, por qué lo que haces cada día importa. Tardarás unos 15 minutos.</p>';
- const v=vig(s,{bear:'bearW',tag:'Antes de empezar',html:'<div class="pause"><span class="heart">💚</span><p><b>Haz una pausa de diez segundos.</b> Piensa en alguien que depende de que tú hagas bien tu trabajo: tu familia, un estudiante, una mamá que viaja horas para matricular a su hijo, un compañero. Escribe su nombre abajo. Lo llevaremos contigo hasta el final.</p></div>'});
+ const v=vig(s,{bear:'bearW',tag:'Antes de empezar',html:'<div class="pause"><span class="heart">💚</span><p><b>Haz una pausa de diez segundos.</b> Piensa en alguien que depende de que tú hagas bien tu trabajo: tu familia, un estudiante, una mamá que viaja horas para matricular a su hijo, un compañero. Abajo escribe su nombre, o aquello que te motiva a hacerlo bien. Lo llevaremos contigo hasta el final.</p></div>'});
  const f=el('div','fld');f.innerHTML='<label for="nm">Tu nombre completo</label><input id="nm" maxlength="60" autocomplete="name" placeholder="Ej.: Ana María Pérez" value="'+esc(S.name)+'">';s.appendChild(f);
- const f2=el('div','fld');f2.innerHTML='<label for="ar">Tu cargo</label><input id="ar" maxlength="70" autocomplete="organization-title" placeholder="Ej.: Coordinador/a de Admisiones" value="'+esc(S.cargo)+'">';s.appendChild(f2);
- const f3=el('div','fld');f3.innerHTML='<label for="dd">¿En quién piensas cuando trabajas? (opcional)</label><input id="dd" maxlength="40" placeholder="Ej.: mi hija Sofía, mis estudiantes, mi mamá" value="'+esc(S.ded)+'">';s.appendChild(f3);
+ const f2=el('div','fld');f2.innerHTML='<label for="ar">Tu cargo</label><input id="ar" maxlength="100" autocomplete="organization-title" placeholder="Ej.: Coordinador/a de Admisiones" value="'+esc(S.cargo)+'">';s.appendChild(f2);
+ const f3=el('div','fld');f3.innerHTML='<label for="dd">¿Quién o qué te motiva cuando trabajas? (opcional)</label><input id="dd" maxlength="60" placeholder="Ej.: mi hija Sofía, mis estudiantes, servir con excelencia" value="'+esc(S.ded)+'">';s.appendChild(f3);
  const row=el('div','row');row.style.marginTop='10px';row.innerHTML='<div class="card" style="flex:1;min-width:220px"><b>7 estaciones</b><br><small>Historias, juegos y decisiones</small></div><div class="card" style="flex:1;min-width:220px"><b>Certificado</b><br><small>Para descargar al final</small></div>';s.appendChild(row);
  const upd=()=>{S.name=$('#nm').value.trim();S.cargo=$('#ar').value.trim();S.ded=$('#dd').value.trim();save();nav()};
  ['#nm','#ar','#dd'].forEach(q=>{$(q).oninput=upd;$(q).onchange=upd});$('#ar').onkeydown=e=>{if(e.key==='Enter'&&can(0))go(1)};
@@ -348,7 +348,7 @@ function build6(s){
   bh.onclick=()=>ans(1);be.onclick=()=>ans(0);two.append(bh,be);deck.append(d,two)}
  s.appendChild(fb);card();
  const pr=el('div');s.appendChild(pr);
- function promesa(){pr.innerHTML='<h3 style="margin-top:14px">Paso 2 · Tu promesa</h3><p class="lead" style="margin:4px 0">Elige <b>3 compromisos</b>. Irán en tu certificado'+(S.ded?', y los dedicas a <b>'+esc(S.ded)+'</b>':'')+'.</p>';
+ function promesa(){pr.innerHTML='<h3 style="margin-top:14px">Paso 2 · Tu promesa</h3><p class="lead" style="margin:4px 0">Elige <b>3 compromisos</b>. Irán en tu certificado'+(S.ded?', junto a tu motivación: <b>'+esc(S.ded)+'</b>':'')+'.</p>';
   const P=['Preguntaré antes de adivinar','Informaré las desviaciones, aunque incomode','Trataré con empatía y respeto a cada persona','Trabajaré en equipo y no de forma aislada','Propondré mejoras y aprenderé cada día','Haré las cosas bien a la primera, siguiendo lo acordado'];
   const g=el('div','prom');const sel=new Set(S.prom||[]);const msg=el('div','res');
   const upd=()=>{g.querySelectorAll('button').forEach(b=>b.classList.toggle('on',sel.has(b.textContent)));msg.textContent=sel.size<3?'Llevas '+sel.size+' de 3.':'💚 ¡Promesa lista!';if(sel.size===3){S.prom=[...sel];save();award('s6')}};
@@ -375,7 +375,7 @@ function build8(s){
  const w=el('div');s.appendChild(w);
  s.enter=()=>{const n=KEYS.filter(k=>S.done[k]).length;
   w.innerHTML='<div class="kick">Cierre</div><h2>Gracias, '+esc(S.name.split(' ')[0]||'')+'</h2>';
-  vig(w,{bear:'bearR',tag:'Mensaje final',html:'<p>El cumplimiento de requisitos no es una responsabilidad de unos pocos: es una tarea de todos. Cada acción individual, por pequeña que sea, suma al resultado final.</p><p style="margin-top:8px">Cuando cumplimos bien, la institución fortalece su credibilidad, tú trabajas con mayor seguridad y tranquilidad, y el usuario recibe lo que merece:</p><q>Un servicio de calidad.</q>'+(S.ded?'<p style="margin-top:8px">Y recuerda por quién lo haces: <b>'+esc(S.ded)+'</b> 💚</p>':'')});
+  vig(w,{bear:'bearR',tag:'Mensaje final',html:'<p>El cumplimiento de requisitos no es una responsabilidad de unos pocos: es una tarea de todos. Cada acción individual, por pequeña que sea, suma al resultado final.</p><p style="margin-top:8px">Cuando cumplimos bien, la institución fortalece su credibilidad, tú trabajas con mayor seguridad y tranquilidad, y el usuario recibe lo que merece:</p><q>Un servicio de calidad.</q>'+(S.ded?'<p style="margin-top:8px">Y recuerda lo que te motiva: <b>'+esc(S.ded)+'</b> 💚</p>':'')});
   w.appendChild(el('h3','','Tu cadena de valor'));
   w.appendChild(el('div','chain',KEYS.map((k,i)=>(i?'<b></b>':'')+'<i class="'+(S.done[k]?'on':'')+'">'+BADGE[k][0]+'</i>').join('')));
   w.appendChild(el('div','badges',KEYS.map(k=>'<div class="badge'+(S.done[k]?' on':'')+'"><span>'+BADGE[k][0]+'</span><small>'+BADGE[k][1]+'</small></div>').join('')));
@@ -439,7 +439,7 @@ async function drawCert(){const c=$('#cert'),x=c.getContext('2d');c.width=3508;c
  let fs=76;x.font='bold italic '+fs+'px '+SER;while(x.measureText(S.name).width>1200&&fs>34){fs-=3;x.font='bold italic '+fs+'px '+SER}
  x.fillStyle=INK;x.fillText(S.name,w/2,490);
  const nw=Math.max(520,Math.min(1250,x.measureText(S.name).width+80));x.strokeStyle=GLD;x.lineWidth=2.5;x.beginPath();x.moveTo(w/2-nw/2,512);x.lineTo(w/2+nw/2,512);x.stroke();
- x.fillStyle=GR2;x.font='600 25px '+SAN;let cg=S.cargo;while(x.measureText(cg).width>1100&&cg.length>8)cg=cg.slice(0,-2);x.fillText(cg+(cg!==S.cargo?'…':''),w/2,553);
+ x.fillStyle=GR2;x.font='600 25px '+SAN;if(x.measureText(S.cargo).width<=1100)x.fillText(S.cargo,w/2,553);else{x.font='600 22px '+SAN;wrap(S.cargo,1100).slice(0,2).forEach((l,k)=>x.fillText(l,w/2,545+k*27))}
  // cuerpo
  x.fillStyle=INK;x.font='23px '+SER;
  const body='participó y aprobó la experiencia formativa «Calidad con corazón» sobre el Sistema de Gestión de la Calidad y la atención al usuario (Perspectiva #3: conciencia y compromiso), con un resultado de evaluación de '+S.qs+' sobre 5 («'+S.qtier+'») y los 7 logros de la ruta completados.';
@@ -449,7 +449,7 @@ async function drawCert(){const c=$('#cert'),x=c.getContext('2d');c.width=3508;c
  const P=(S.prom||[]).slice(0,3),cw=340,gap=24,x0=w/2-(cw*3+gap*2)/2;
  P.forEach((p,i)=>{const bx=x0+i*(cw+gap);x.fillStyle='rgba(31,56,100,.07)';x.fillRect(bx,742,cw,72);x.fillStyle=GR2;x.fillRect(bx,742,5,72);
   x.fillStyle=INK;x.font='600 19px '+SAN;x.textAlign='left';const L=wrap(p,cw-34);L.forEach((l,j)=>x.fillText(l,bx+18,(L.length>1?768:783)+j*25));x.textAlign='center'});
- if(S.ded){x.fillStyle=GR2;x.font='italic 24px '+SER;let t='Con dedicación para '+S.ded;while(x.measureText(t).width>1000&&t.length>14)t=t.slice(0,-2);x.fillText(t,w/2,858)}
+ if(S.ded){x.fillStyle=GR2;x.font='italic 24px '+SER;wrap('Mi motivación: «'+S.ded.replace(/[.\s]+$/,'')+'»',1000).slice(0,2).forEach((l,k)=>x.fillText(l,w/2,858+k*30))}
  // firmas
  const sy=1000;x.strokeStyle=INK;x.lineWidth=1.5;
  x.beginPath();x.moveTo(250,sy);x.lineTo(630,sy);x.moveTo(w-630,sy);x.lineTo(w-250,sy);x.stroke();
